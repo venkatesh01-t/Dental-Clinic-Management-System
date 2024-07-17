@@ -1,0 +1,756 @@
+{%extends 'backend/head.html'%}
+{% load static %}
+
+{%block active%}
+<div class="navbar-nav w-100">
+    <a href="/backend/" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+    <a href="/backend/tablet/" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Tablets</a>
+    <a href="/backend/searchall/" class="nav-item nav-link"><i class="fa fa-th me-2"></i>All DATAs</a>
+    <div class="nav-item dropdown">
+        <a href="/backend/tabletadd" class="nav-link dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Events</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/backend/tabletadd" class="dropdown-item">tablet</a>
+            <a href="/typography" class="dropdown-item">Typography</a>
+            <a href="/element" class="dropdown-item">Other Elements</a>
+        </div>
+    </div>
+    <a href="/backend/opp/" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Appointment</a>
+    
+    <a href="/chart" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+    <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/signin" class="dropdown-item">Sign In</a>
+            <a href="/signup" class="dropdown-item">Sign Up</a>
+            <a href="/404" class="dropdown-item">404 Error</a>
+            <a href="/blank" class="dropdown-item">Blank Page</a>
+        </div>
+    </div>
+</div>
+{% endblock%}
+{% block main %}
+<style>
+    #inputForm {
+        margin-bottom: 20px;
+    }
+    .details-control {
+            cursor: pointer;
+            font-size: 1.5rem;
+            text-align: center;
+            width: 30px;
+        }
+       
+        .details-content {
+            display: none;
+        }
+        .details-content.show {
+            display: table-row;
+        }
+        .hiddenRow {
+            padding: 0 !important;
+        }
+        .hiddenRow .table {
+            margin: 0;
+        }
+</style>
+
+<form  action="" method= "POST" >
+    {%csrf_token%}
+    
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Recent pasent</h6>
+                    <h6>{{date}}</h6>
+                    
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                          
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th><h5>Name</h5><input type="text" name="username">
+                   <h5>Age</h5> <input type="number" name="age">
+                  <h5>Phoneno</h5>  <input type="number" name="phoneno">
+                   </th>
+                </tr>
+                
+            </tbody>
+        </table>
+            </div>
+            </div>
+        </div>
+
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">pasent health Problem</h6>   
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck1" value="Hypertension" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck1">Hypertension</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck2" value="Diabetes" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck2">Diabetes</label>
+                  
+                     <input type="checkbox" class="btn-check" id="btncheck3" value="Rheumatic Fever" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck3">Rheumatic Fever</label>
+                  </div>
+              
+                
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck4" value="Bleedling Disorders" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck4">Bleedling Disorders</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck5" value="Allergy To Medicines" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck5">Allergy To Medicines</label>
+                  
+                     <input type="checkbox" class="btn-check" id="btncheck6" value="Cardiac Problem" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck6">Cardiac Problem</label>
+                  </div>
+              
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck7" value="Fits" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck7">Fits</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck8" value="Asthma" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck8">Asthma</label>
+                  
+                     <input type="checkbox" class="btn-check" id="btncheck9" value="sinusits" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck9">sinusits</label>
+                  </div>
+             
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck10" value="Renal Problem" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck10">Renal Problem</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck11" value="Ulcer" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck11">Ulcer</label>
+                  
+                     <input type="checkbox" class="btn-check" id="btncheck12" value="Jandice" autocomplete="off" name="healthproblems">
+                    <label class="btn btn-outline-primary"  for="btncheck12">Jandice</label>
+                  </div>
+               
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck13" value="Thyroid" autocomplete="off" name="healthproblems">
+                        <label class="btn btn-outline-primary"  for="btncheck13">Thyroid</label>
+                      
+                        <input type="checkbox" class="btn-check" id="btncheck14" value="SlefMedication" autocomplete="off" name="healthproblems">
+                        <label class="btn btn-outline-primary"  for="btncheck14">SlefMedication</label>
+                      
+                         <input type="checkbox" class="btn-check" id="btncheck15" value="Others" autocomplete="off" name="healthproblems">
+                        <label class="btn btn-outline-primary"  for="btncheck15">Others</label>
+                      </div>
+                
+            </div>
+        </div>
+           
+        
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">pasent complaints</h6>
+                    
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                          
+            <thead>
+                <tr>
+                    <th> complaints   : <input type="text" name="compalints" style="width: 90%;">
+                        
+                    </th>
+                    
+                </tr>
+
+            </thead>
+           
+    
+            
+        </table>
+                </div>
+            </div>
+        
+                    
+                   
+       
+
+
+        
+        <div class="container-fluid pt-4 px-0">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between  mb-4">
+                    <h6 class="mb-0">Recent pasent</h6>
+                    
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                          
+            <thead>
+                <tr>
+                    <th>Tablets</th>
+                    
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        <div id="mainForm">
+                            <div id="inputForm"> 
+                                <label for="options">Tablets</label>
+                                <select id="options" name="tablets">
+                                    {% for i in tablet %}
+                                    <option value="{{i.tabletname}}">{{i.tabletname}}</option>
+                                    
+                                    {%endfor%}
+                                </select>
+                                <label for="options1">Day</label>
+                                <select id="options1" name="day">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <label for="options1">MOR</label>
+                                <select id="options1" name="morning">
+                                    <option value="1">1</option>
+                                    <option value="0">0</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <label for="options2">EVE</label>
+                                <select id="options2" name="evening">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <label for="options3">NIT</label>
+                                <select id="options3" name="night">
+                                    <option value="1">1</option>
+                                    <option value="0">0</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <label for="options4">food</label>
+                                <select id="options4" name="food">
+                                    <option value="afterfood">afterfood</option>
+                                    <option value="beforfood">beforfood</option>
+                                </select>
+                            </div>
+                        </div>
+                    </th>
+                    
+                </tr>
+            </tbody>
+            
+        </table>
+        
+    </div>
+    
+            </div>
+        
+            <button id="addButton" type="button" class="btn btn-primary">Add Input Box</button>
+        </div>
+        
+
+
+            <div class="container-fluid pt-4 px-0">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Rx Adviced</h6>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                         <input type="checkbox" class="btn-check" id="btncheck16" value="To Get Physician Option" autocomplete="off" name="rxadviced">
+                         <label class="btn btn-outline-primary"  for="btncheck16">To Get Physician Option</label>
+                       
+                          <input type="checkbox" class="btn-check" id="btncheck17" value="Extraction" autocomplete="off" name="rxadviced">
+                         <label class="btn btn-outline-primary"  for="btncheck17">Extraction</label>
+                       
+                          
+                       </div>
+                       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck18" value="RCT" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck18">RCT</label>
+                      
+                         <input type="checkbox" class="btn-check" id="btncheck19" value="Filling" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck19">Filling</label>
+                      
+                         
+                      </div>
+                      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck20" value="CD/RPD" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck20">CD/RPD</label>
+                      
+                         <input type="checkbox" class="btn-check" id="btncheck21" value="Implant" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck21">Implant</label>
+                      
+                         
+                      </div>
+                      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck22" value="Ortho" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck22">Ortho</label>
+                      
+                         <input type="checkbox" class="btn-check" id="btncheck23" value="Perio" autocomplete="off" name="rxadviced">
+                        <label class="btn btn-outline-primary"  for="btncheck23">Perio</label>
+                      
+                         
+                      </div>
+                     
+
+                </div>
+            </div>
+
+
+            <div class="container-fluid text-center pt-4 px-0">
+                <div class="row text-center">
+                    <div class="col-md-12 text-center">
+                        <div class="bg-secondary text-center rounded p-1 mb-4">
+                            <h1 class="mb-0">Adult patients</h1>
+                        </div>
+                          
+            <div class="btn-group row-md-6" role="group" aria-label="Checkbox Button Group"> <h6>LU :</h6>  
+                <input type="checkbox" class="btn-check" id="option1" autocomplete="off" value="1" name="lu">
+                <label class="btn btn-outline-primary" for="option1">1</label>
+                
+                <input type="checkbox" class="btn-check" id="option2" autocomplete="off"value="2" name="lu">
+                <label class="btn btn-outline-primary" for="option2">2</label>
+                
+                <input type="checkbox" class="btn-check" id="option3" autocomplete="off" value="3" name="lu">
+                <label class="btn btn-outline-primary" for="option3">3</label>
+                
+                <input type="checkbox" class="btn-check" id="option4" autocomplete="off" value="4" name="lu">
+                <label class="btn btn-outline-primary" for="option4">4</label>
+                
+                <input type="checkbox" class="btn-check" id="option5" autocomplete="off" value="5" name="lu">
+                <label class="btn btn-outline-primary" for="option5">5</label>
+                
+                <input type="checkbox" class="btn-check" id="option6" autocomplete="off" value="6" name="lu">
+                <label class="btn btn-outline-primary" for="option6">6</label>
+                
+                <input type="checkbox" class="btn-check" id="option7" autocomplete="off" value="7" name="lu">
+                <label class="btn btn-outline-primary" for="option7">7</label>
+                
+                <input type="checkbox" class="btn-check" id="option8" autocomplete="off" value="8" name="lu">
+                <label class="btn btn-outline-primary" for="option8">8</label>
+            </div>
+                    
+            
+
+        <div class="btn-group row-md-6" role="group" aria-label="Checkbox Button Group"><h6>RU :</h6>  
+            <input type="checkbox" class="btn-check" id="option9" autocomplete="off" value="1" name="ru">
+            <label class="btn btn-outline-primary" for="option9">1</label>
+            
+            <input type="checkbox" class="btn-check" id="option10" autocomplete="off" value="2" name="ru">
+            <label class="btn btn-outline-primary" for="option10">2</label>
+            
+            <input type="checkbox" class="btn-check" id="option11" autocomplete="off" value="3" name="ru">
+            <label class="btn btn-outline-primary" for="option11">3</label>
+            
+            <input type="checkbox" class="btn-check" id="option12" autocomplete="off" value="4" name="ru">
+            <label class="btn btn-outline-primary" for="option12">4</label>
+            
+            <input type="checkbox" class="btn-check" id="option13" autocomplete="off" value="5" name="ru">
+            <label class="btn btn-outline-primary" for="option13">5</label>
+            
+            <input type="checkbox" class="btn-check" id="option14" autocomplete="off" value="6" name="ru">
+            <label class="btn btn-outline-primary" for="option14">6</label>
+            
+            <input type="checkbox" class="btn-check" id="option15" autocomplete="off" value="7" name="ru">
+            <label class="btn btn-outline-primary" for="option15">7</label>
+            
+            <input type="checkbox" class="btn-check" id="option16" autocomplete="off" value="8" name="ru">
+            <label class="btn btn-outline-primary" for="option16">8</label>
+            </div>
+               
+          
+            
+    <div class="btn-group row-md-6 " role="group" aria-label="Checkbox Button Group"><h6>LD :</h6>  
+        <input type="checkbox" class="btn-check" id="option17" autocomplete="off" value="1" name="ld">
+        <label class="btn btn-outline-primary" for="option17">1</label>
+        
+        <input type="checkbox" class="btn-check" id="option18" autocomplete="off" value="2" name="ld">
+        <label class="btn btn-outline-primary" for="option18">2</label>
+        
+        <input type="checkbox" class="btn-check" id="option19" autocomplete="off" value="3" name="ld">
+        <label class="btn btn-outline-primary" for="option19">3</label>
+        
+        <input type="checkbox" class="btn-check" id="option20" autocomplete="off" value="4" name="ld">
+        <label class="btn btn-outline-primary" for="option20">4</label>
+        
+        <input type="checkbox" class="btn-check" id="option21" autocomplete="off" value="5" name="ld">
+        <label class="btn btn-outline-primary" for="option21">5</label>
+        
+        <input type="checkbox" class="btn-check" id="option22" autocomplete="off" value="6" name="ld">
+        <label class="btn btn-outline-primary" for="option22">6</label>
+        
+        <input type="checkbox" class="btn-check" id="option23" autocomplete="off" value="7" name="ld">
+        <label class="btn btn-outline-primary" for="option23">7</label>
+        
+        <input type="checkbox" class="btn-check" id="option24" autocomplete="off" value="8" name="ld">
+        <label class="btn btn-outline-primary" for="option24">8</label>
+    </div>
+           
+            
+    <div class="btn-group row-md-6 " role="group" aria-label="Checkbox Button Group"><h6>RD :</h6>  
+        <input type="checkbox" class="btn-check" id="option25" autocomplete="off" value="1" name="rd">
+        <label class="btn btn-outline-primary" for="option25">1</label>
+        
+        <input type="checkbox" class="btn-check" id="option26" autocomplete="off" value="2" name="rd">
+        <label class="btn btn-outline-primary" for="option26">2</label>
+        
+        <input type="checkbox" class="btn-check" id="option27" autocomplete="off" value="3" name="rd">
+        <label class="btn btn-outline-primary" for="option27">3</label>
+        
+        <input type="checkbox" class="btn-check" id="option28" autocomplete="off" value="4" name="rd">
+        <label class="btn btn-outline-primary" for="option28">4</label>
+        
+        <input type="checkbox" class="btn-check" id="option29" autocomplete="off" value="5" name="rd">
+        <label class="btn btn-outline-primary" for="option29">5</label>
+        
+        <input type="checkbox" class="btn-check" id="option30" autocomplete="off" value="6" name="rd">
+        <label class="btn btn-outline-primary" for="option30">6</label>
+        
+        <input type="checkbox" class="btn-check" id="option31" autocomplete="off" value="7" name="rd">
+        <label class="btn btn-outline-primary" for="option31">7</label>
+        
+        <input type="checkbox" class="btn-check" id="option32" autocomplete="off" value="8" name="rd">
+        <label class="btn btn-outline-primary" for="option32">8</label>
+    </div>
+            </div>
+                </div>
+            </div>
+            
+                
+                <div class="container-fluid text-center pt-4 px-0">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="bg-secondary text-center rounded p-1 mb-4">
+                                <h1 class="mb-0 text-center">child patients</h1>
+                            </div>
+                <div class="btn-group  " role="group" aria-label="Checkbox Button Group"><h6>LU :</h6>
+                    <input type="checkbox" class="btn-check" id="option33" autocomplete="off" value="A" name="luu">
+            <label class="btn btn-outline-primary" for="option33">A</label>
+            
+            <input type="checkbox" class="btn-check" id="option34" autocomplete="off" value="B" name="luu">
+            <label class="btn btn-outline-primary" for="option34">B</label>
+            
+            <input type="checkbox" class="btn-check" id="option35" autocomplete="off" value="C" name="luu">
+            <label class="btn btn-outline-primary" for="option35">C</label>
+            
+            <input type="checkbox" class="btn-check" id="option36" autocomplete="off" value="D" name="luu">
+            <label class="btn btn-outline-primary" for="option36">D</label>
+            
+            <input type="checkbox" class="btn-check" id="option37" autocomplete="off" value="E" name="luu">
+            <label class="btn btn-outline-primary" for="option37">E</label>
+                    
+                   
+                
+                        </div>
+                
+    
+            <div class="btn-group" role="group" aria-label="Checkbox Button Group"><h6>RU :</h6>
+                <input type="checkbox" class="btn-check" id="option38" autocomplete="off" value="A" name="ruu">
+            <label class="btn btn-outline-primary" for="option38">A</label>
+            
+            <input type="checkbox" class="btn-check" id="option39" autocomplete="off" value="B" name="ruu">
+            <label class="btn btn-outline-primary" for="option39">B</label>
+            
+            <input type="checkbox" class="btn-check" id="option40" autocomplete="off" value="C" name="ruu">
+            <label class="btn btn-outline-primary" for="option40">C</label>
+            
+            <input type="checkbox" class="btn-check" id="option41" autocomplete="off" value="D" name="ruu">
+            <label class="btn btn-outline-primary" for="option41">D</label>
+            
+            <input type="checkbox" class="btn-check" id="option42" autocomplete="off" value="E" name="ruu">
+            <label class="btn btn-outline-primary" for="option42">E</label>
+                
+             
+                   
+                </div>
+                
+        <div class="btn-group " role="group" aria-label="Checkbox Button Group"><h6>LD:</h6>
+            <input type="checkbox" class="btn-check" id="option43" autocomplete="off" value="A" name="ldd">
+            <label class="btn btn-outline-primary" for="option43">A</label>
+            
+            <input type="checkbox" class="btn-check" id="option44" autocomplete="off" value="B" name="ldd">
+            <label class="btn btn-outline-primary" for="option44">B</label>
+            
+            <input type="checkbox" class="btn-check" id="option45" autocomplete="off" value="C" name="ldd">
+            <label class="btn btn-outline-primary" for="option45">C</label>
+            
+            <input type="checkbox" class="btn-check" id="option46" autocomplete="off" value="D" name="ldd">
+            <label class="btn btn-outline-primary" for="option46">D</label>
+            
+            <input type="checkbox" class="btn-check" id="option47" autocomplete="off" value="E" name="ldd">
+            <label class="btn btn-outline-primary" for="option47">E</label>
+            
+           
+        </div>
+                
+                
+        <div class="btn-group " role="group" aria-label="Checkbox Button Group"><h6>RD:</h6>
+            <input type="checkbox" class="btn-check" id="option48" autocomplete="off" value="A" name="rdd">
+            <label class="btn btn-outline-primary" for="option48">A</label>
+            
+            <input type="checkbox" class="btn-check" id="option49" autocomplete="off" value="B" name="rdd">
+            <label class="btn btn-outline-primary" for="option49">B</label>
+            
+            <input type="checkbox" class="btn-check" id="option50" autocomplete="off" value="C" name="rdd">
+            <label class="btn btn-outline-primary" for="option50">C</label>
+            
+            <input type="checkbox" class="btn-check" id="option51" autocomplete="off" value="D" name="rdd">
+            <label class="btn btn-outline-primary" for="option51">D</label>
+            
+            <input type="checkbox" class="btn-check" id="option52" autocomplete="off" value="E" name="rdd">
+            <label class="btn btn-outline-primary" for="option52">E</label>
+            
+            
+        </div>
+                </div>
+                    </div>
+                    </div>
+
+      
+     
+     <div class="text-center">  
+      <button type="submit" class="btn btn-primary"  >Submit</button>
+      <!-- <img src="{% static 'assets/image1.jpg-1-edited_image.jpg' %}" alt="Image to Print" class="printer-image"> -->
+      <!-- <img src="{% static 'assets/image1.jpg-1-edited_image.jpg' %}" id="printImage" alt="Image" style="display: none;"> -->
+    </div>
+  </form>
+ 
+
+  <!-- <div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Recent pasent</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+               
+                
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Username</th>
+                        <th>Age</th>
+                        <th>Phone No</th>
+                        <th>pasent health </th>
+                        <th>Complaints</th>
+                        <th>Tablet</th>
+                        <th>Morning</th>
+                        <th>Evening</th>
+                        <th>Night</th>
+                        <th>Food</th>
+                        <th>rxadviced</th>
+                        <th>leftupper</th>
+                        <th>rightupper</th>
+                        <th>leftdown</th>
+                        <th>rightdown</th>
+                        <th>leftupperchild</th>
+                        <th>rightupperchild</th>
+                        <th>leftdownchild</th>
+                        <th>rightdownchild</th>
+                        <th>update</th>
+                        <th>delete</th>
+                        <th>print</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                   
+                       
+                    
+                        
+
+                    {% for entry in data_list %}
+                        
+                       <tr><td>{{entry.id}}</td>
+                            <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                            <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                            <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                            <td>{%for i in entry.pasenthealthProblem%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                            <td>{%for i in entry.tablet %} {{ i }}<br> {%endfor%}</td>
+                            <td>{%for i in entry.morning%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.evening%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.night%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.food%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.rxadviced%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.leftupper%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.rightupper%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.leftdown%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.rightdown%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.leftupperchar%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.rightupperchar%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.leftdownchar%}{{ i }}<br>{%endfor%}</td>
+                            <td>{%for i in entry.rightdownchar%}{{ i }}<br>{%endfor%}</td>
+
+                            <td> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></td>
+                                <td> <a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></td>
+                                <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                            </tr>
+                            
+                        {% endfor %}
+                    
+                    </tbody>
+                </table>
+         
+        </div>
+    </div>
+  </div> -->
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Recent pasent</h6>
+            <a href="">Show All</a>
+        </div>
+  
+  <div class="table-responsive">
+    <table class="table text-start align-middle table-bordered table-hover mb-0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>id</th>
+                <th>Username</th>
+                <th>Age</th>
+                <th>Phone No</th>
+                <th>Date</th>
+                <th>print</th>
+            </tr>
+        </thead>
+        {% for entry in data_list %}
+        <tbody>
+            <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                <td class="details-control" >s/w</td>
+                <td>{{entry.id}}</td>
+                <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+               
+                <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+            </tr>
+            <tr>
+                <td colspan="12" class="hiddenRow">
+                    <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                        <table class="table table-condensed" >
+                            <tr >
+                                <th colspan="6">pasent health </th>
+                                <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="6">Complaints</th>
+                                <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                              <th colspan="2">  day<br>{%for i in entry.day%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                              <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                              <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                            <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                               <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                
+                            </tr>
+                            <tr>
+                                <th colspan="4">rxadviced</th>
+                                <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                            </tr>
+                            <tr >
+                        <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                        <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                        <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                        <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                        
+                        </tr>
+                            <tr>
+                                <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                        
+                        <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                        <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            
+            
+        </tbody>
+        {%endfor%}
+    </table>
+</div>
+
+ 
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+$('.accordion-toggle').each(function(index) {
+var targetId = 'row' + (index + 1);
+$(this).attr('data-target', '#' + targetId);
+$(this).next().find('.accordian-body').attr('id', targetId);
+});
+$('.accordion-toggle').click(function() {
+var icon = $(this).find('.details-control');
+icon.text(icon.text() === 'hide' ? 'show' : 'hide');
+});
+});
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script>
+    var form = document.getElementById('inputForm');
+    var addInputBtn = document.getElementById('addInputBtn');
+    var text = 1;
+
+    document.getElementById('addButton').addEventListener('click', function() {
+            // Get the #inputForm div
+            var inputForm = document.getElementById('inputForm');
+            // Clone the #inputForm div
+            var clone = inputForm.cloneNode(true);
+            // Clear the input fields in the clone
+            
+            clone.querySelector('select[name="tablets"]').selectedIndex = 0;
+            clone.querySelector('select[name="day"]').selectedIndex = 0;
+            clone.querySelector('select[name="morning"]').selectedIndex = 0;
+            clone.querySelector('select[name="evening"]').selectedIndex = 0;
+            clone.querySelector('select[name="night"]').selectedIndex = 0;
+            clone.querySelector('select[name="food"]').selectedIndex = 0;
+            // Append the cloned div to the main form
+            document.getElementById('mainForm').appendChild(clone);
+        });
+
+      
+   
+  
+  </script>
+{%endblock%}
+

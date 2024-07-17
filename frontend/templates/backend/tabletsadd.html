@@ -1,0 +1,110 @@
+{% extends 'backend/head.html' %}
+{%load static %}
+{%block active%}
+<div class="navbar-nav w-100">
+    <a href="/backend/" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+    <a href="/backend/tablet/" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tablets</a>
+    <a href="/backend/searchall/" class="nav-item nav-link "><i class="fa fa-th me-2"></i>All DATAs</a>
+    <div class="nav-item dropdown">
+        <a href="/backend/tabletadd" class="nav-link dropdown-toggle active"  data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Events</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/backend/tabletadd" class="dropdown-item">tablet</a>
+            <a href="/typography" class="dropdown-item">Typography</a>
+            <a href="/element" class="dropdown-item">Other Elements</a>
+        </div>
+    </div>
+    <a href="/backend/opp/" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Appointment</a>
+    
+    <a href="/chart" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+    <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/signin" class="dropdown-item">Sign In</a>
+            <a href="/signup" class="dropdown-item">Sign Up</a>
+            <a href="/404" class="dropdown-item">404 Error</a>
+            <a href="/blank" class="dropdown-item">Blank Page</a>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block main %}
+
+<form  action="" method= "POST" >
+    {%csrf_token%}
+    
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Add The Tablet</h6>
+                    <h6>{{date}}</h6>
+                    
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                          
+            <thead>
+                <tr>
+                    <th>Tablet Name</th>
+                    
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th><h5>Name</h5><input type="text" name="tabletname"  style="width: 90%;"  title="tablet name to enter" value={{data.tabletname}}>
+                      <br><br>  <button id="addButton" type="submit" class="btn btn-primary">Add Tablet </button>
+                   </th>
+                   
+                </tr>
+                
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+</div>
+
+</form>
+        
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Recent pasent</h6>
+                    <a href="">Show All</a>
+                </div>
+          
+          <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr>
+                        
+                        <th>id</th>
+                        <th>Tablet Name</th>
+                        <th>update</th>
+                        <th>Delete</th>
+                       
+                    </tr>
+                </thead>
+                {% for entry in data_list %}
+                <tbody>
+                    
+                        <td>{{entry.id}}</td>
+                        <td>{{ entry.tabletname }}</td>
+                        <th> <a class="btn btn-sm btn-primary" href="{% url 'update in tablets' entry.id %}">update</a></th>
+                         <th ><a class="btn btn-sm btn-primary" href="{% url 'dalete in tablets' entry.id %}">delete</a></th>
+                           
+                    </tr>
+                </tbody>
+                {%endfor%}
+            </table>
+          </div>
+            </div>
+        </div>
+    
+
+                        
+
+
+
+{%endblock%}

@@ -1,0 +1,23 @@
+{%load static%}
+<style>
+   img  {
+        width: 100%;
+        height: 100%;
+    }
+    @media print {
+    body * {
+        visibility: hidden;
+    }
+    #printImage {
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Or use object-fit: cover; depending on how you want the image to be displayed */
+    }
+}
+
+</style>
+<a  onclick="window.print()"><img src="{% static 'assets/image1.jpg--edited_image.jpg' %}" id="printImage"></a>

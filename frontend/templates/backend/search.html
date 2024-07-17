@@ -1,0 +1,411 @@
+{% extends 'backend/head.html'%}
+{%block active%}
+<div class="navbar-nav w-100">
+    <a href="/backend/" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+    <div class="nav-item dropdown">
+        <a href="/backend/index" class="nav-link dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Events</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/backend/tabletadd" class="dropdown-item">tablet</a>
+            <a href="/typography" class="dropdown-item">Typography</a>
+            <a href="/element" class="dropdown-item">Other Elements</a>
+        </div>
+    </div>
+    <a href="/backend/searchall/" class="nav-item nav-link"><i class="fa fa-th me-2"></i>All DATAs</a>
+    <a href="/backend/opp/" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Appointment</a>
+    <a href="/table" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+    <a href="/chart" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+    <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+        <div class="dropdown-menu bg-transparent border-0">
+            <a href="/signin" class="dropdown-item">Sign In</a>
+            <a href="/signup" class="dropdown-item">Sign Up</a>
+            <a href="/404" class="dropdown-item">404 Error</a>
+            <a href="/blank" class="dropdown-item">Blank Page</a>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% load static %}
+
+{%block main%}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Recent pasent</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>id</th>
+                        <th>Username</th>
+                        <th>Age</th>
+                        <th>Phone No</th>
+                        <th>Date</th>
+                        <th>print</th>
+                    </tr>
+                </thead>
+        
+                {% if sear %}
+                {% for entry in dbsear %}
+               
+                      
+                        <tbody>
+                            <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                                <td class="details-control" >s/w</td>
+                                <td>{{entry.id}}</td>
+                                <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                                <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                                <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                               
+                                <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                                <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                                        <table class="table table-condensed" >
+                                            <tr >
+                                                <th colspan="6">pasent health </th>
+                                                <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6">Complaints</th>
+                                                <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                <th colspan="2">  day<br>{%for i in entry.day%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                              <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                              <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                            <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                               <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4">rxadviced</th>
+                                                <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                                            </tr>
+                                            <tr >
+                                        <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                                        <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                                        <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                                        <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                                        
+                                        </tr>
+                                            <tr>
+                                                <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                                <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                                        
+                                        <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                                        <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                                <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            
+                        </tbody>
+                     
+                {%endfor%} 
+                    {% for entry in dbsear1 %}
+                    
+                         
+                            <tbody>
+                                <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                                    <td class="details-control" >s/w</td>
+                                    <td>{{entry.id}}</td>
+                                    <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                                   
+                                    <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                                    <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                                            <table class="table table-condensed" >
+                                                <tr >
+                                                    <th colspan="6">pasent health </th>
+                                                    <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6">Complaints</th>
+                                                    <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                   <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">rxadviced</th>
+                                                    <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                                                </tr>
+                                                <tr >
+                                            <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                                            <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                                            <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                                            
+                                            </tr>
+                                                <tr>
+                                                    <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                                    <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                                            
+                                            <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                                    <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                       
+                    {% endfor %}     
+                    <!-- {% for i in dbsear1 %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.tablet }}</td> 
+                        <td>{{i.tabletfit}}</td>
+                        <td>{{i.image}}</td>
+                        <td>{{i.date}}</td>
+                        <td> <a class="btn btn-sm btn-primary" href="{% url 'update1' i.id %}">update</a></td>
+                        <td> <a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' i.id %}">delete</a></td>
+                    </tr>
+                    {% endfor %}  -->
+                    {% for entry in dbsear2 %}
+                    
+                            <tbody>
+                                <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                                    <td class="details-control" >s/w</td>
+                                    <td>{{entry.id}}</td>
+                                    <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                                   
+                                    <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                                    <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                                            <table class="table table-condensed" >
+                                                <tr >
+                                                    <th colspan="6">pasent health </th>
+                                                    <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6">Complaints</th>
+                                                    <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                   <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">rxadviced</th>
+                                                    <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                                                </tr>
+                                                <tr >
+                                            <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                                            <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                                            <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                                            
+                                            </tr>
+                                                <tr>
+                                                    <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                                    <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                                            
+                                            <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                                    <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                         
+                    {% endfor %} 
+                    {% for entry in dbsear3 %}
+                   
+                           
+                            <tbody>
+                                <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                                    <td class="details-control" >s/w</td>
+                                    <td>{{entry.id}}</td>
+                                    <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                                   
+                                    <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                                    <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                                            <table class="table table-condensed" >
+                                                <tr >
+                                                    <th colspan="6">pasent health </th>
+                                                    <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6">Complaints</th>
+                                                    <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                   <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">rxadviced</th>
+                                                    <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                                                </tr>
+                                                <tr >
+                                            <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                                            <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                                            <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                                            
+                                            </tr>
+                                                <tr>
+                                                    <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                                    <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                                            
+                                            <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                                    <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                     
+                    {% endfor %} 
+                    
+                           
+                            {% for entry in dbsear4 %}
+                            <tbody>
+                                <tr data-toggle="collapse"  class="accordion-toggle " data-target={%for i in entry.row%}{{ i }}{%endfor%}>
+                                    <td class="details-control" >s/w</td>
+                                    <td>{{entry.id}}</td>
+                                    <td>{%for i in entry.username%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.age%}{{ i }}{%endfor%}</td>
+                                    <td>{%for i in entry.phoneno%}{{ i }}{%endfor%}</td>
+                                   
+                                    <td>{%for i in entry.date%}{{ i }}{%endfor%}</td>
+                                    <td> <a class="btn btn-sm btn-primary" href="{% url 'printing' entry.id %}">print</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div  class="accordian-body collapse" id={%for i in entry.idrow%}{{ i }}{%endfor%}>
+                                            <table class="table table-condensed" >
+                                                <tr >
+                                                    <th colspan="6">pasent health </th>
+                                                    <td colspan="6">{%for i in entry.pasenthealthProblem%}{{ i }} , {%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6">Complaints</th>
+                                                    <td colspan="6">{%for i in entry.complaints%}{{ i }}{%endfor%}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">Tablet<br>{%for i in entry.tablet%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Morning<br>{%for i in entry.morning%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                  <th colspan="2">  Evening<br>{%for i in entry.evening%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                <th colspan="2">  Night<br>{%for i in entry.night%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                   <th colspan="2">Food<br>{%for i in entry.food%}<h4>{{ i }}</h4><br>{%endfor%}</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">rxadviced</th>
+                                                    <td colspan="8"><h5>{%for i in entry.rxadviced%}{{ i }}  ,  {%endfor%}</h5></td>
+                                                </tr>
+                                                <tr >
+                                            <th colspan="3">leftupper<br>{%for i in entry.leftupper%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightupper<br>{%for i in entry.rightupper%}{{ i }}    {%endfor%}</th>
+                                            <th  colspan="3">leftupperchild<br>{%for i in entry.leftupperchar%}{{ i }}     {%endfor%}</th>
+                                            <th colspan="3">rightupperchild<br>{%for i in entry.rightupperchar%}{{ i }}    {%endfor%}</th>
+                                            
+                                            </tr>
+                                                <tr>
+                                                    <th colspan="3">leftdown<br>{%for i in entry.leftdown%}{{ i }}    {%endfor%}</th>
+                                                    <th colspan="3">rightdown<br>{%for i in entry.rightdown%}{{ i }}     {%endfor%}</th>
+                                            
+                                            <th colspan="3">leftdownchild<br>{%for i in entry.leftdownchar%}{{ i }}    {%endfor%}</th>
+                                            <th colspan="3">rightdownchild<br>{%for i in entry.rightdownchar%}{{ i }}    {%endfor%}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6"> <a class="btn btn-sm btn-primary" href="{% url 'update1' entry.id %}">update</a></th>
+                                                    <th colspan="6"><a class="btn btn-sm btn-primary" href="{% url 'deleteprd1' entry.id %}">delete</a></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                         
+                    {% endfor %} 
+                
+               
+            {% else %}
+            <h1 style="text-align: center;">DATA NOT FOUND {{sear}}</h1>
+        {% endif %} 
+        </div>
+    </div>
+</div>
+</table>
+</div>
+
+
+{%endblock%}
+
+
+
+
+
+
+
